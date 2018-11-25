@@ -24,14 +24,13 @@ namespace AhmadsBank.Controllers
         [HttpPost]
         public IActionResult Index(string transactionType, double accountBalance, double amount, string accountName)
         {
-            
-            if (amount > accountBalance)
+            if(transactionType == "Uttag")
             {
-                ViewBag.Message = "Värdet är för högt!";
-                return View(_repo);
-            }
-            else if(transactionType == "Uttag")
-            {
+                if (amount > accountBalance)
+                {
+                    ViewBag.Message = "Värdet är för högt!";
+                    return View(_repo);
+                }
                 _repo.Withdraw(amount, accountName);
                 double sum = accountBalance - amount;
                 ViewBag.Message = $"Det har dragits {amount} från kontot {accountName}, saldo är nu {sum}";
