@@ -1,0 +1,35 @@
+﻿@model BankRepository
+
+<form asp-controller="Transaction" asp-action="Index" method="post">
+    <table>
+        <tr>
+            <th>
+                Konto
+            </th>
+            <th>
+                Saldo
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var account in Model.Accounts)
+        {
+            <tr>
+                <td><input type="hidden" name="accountName" value="@account.Balance"/>@account.AccountName</td>
+                <td><input type="hidden" name="accountBalance" value="@account.Balance" />@account.Balance</td>
+                <td><input type="text" name="amount"/></td>
+                <td><input type="submit" class="btn btn-default" value="Uttag" name="transactionType"/></td>
+                <td><input type="submit" class="btn btn-success" value="Insättning" /></td>
+                <td></td>
+            </tr>
+        }
+    </table>
+    <h4>@ViewBag.Message</h4>
+</form>
+
+
+<style>
+    th, td {
+        padding: 15px;
+    }
+</style>
