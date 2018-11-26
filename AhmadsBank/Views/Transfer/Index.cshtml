@@ -1,0 +1,62 @@
+﻿@model BankRepository
+
+
+<div class="row">
+    <form asp-controller="Transfer" asp-action="Index" method="post">
+        <h3>Betala till andra</h3><br />
+        <label>Från konto</label><br />
+        <input type="text" name="fromAccount" /><br /><br />
+        <label>Till konto</label><br />
+        <input type="text" name="targetAccount" /><br /><br />
+        <label>Summa</label><br />
+        <input type="text" name="amount" /><br /><br />
+        <input type="submit" class="btn btn-success" value="Skicka" name="transactionType" />
+    </form>
+</div>
+<br />
+<h4>@ViewBag.Message</h4>
+
+
+<table>
+    <tr>
+        <th>
+            Konto
+        </th>
+        <th>
+            Saldo
+        </th>
+
+    </tr>
+    @foreach (var account in Model.Accounts)
+    {
+        <tr>
+            <td><input type="hidden" name="accountName" value="@account.AccountName" />@account.AccountName</td>
+            <td><input type="hidden" name="accountBalance" value="@account.Balance" />@account.Balance</td>
+        </tr>
+    }
+</table>
+
+<style>
+    table {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    td, th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    tr:hover {
+        background-color: #ddd;
+    }
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>

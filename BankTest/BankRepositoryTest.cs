@@ -1,9 +1,10 @@
-using AhmadsBank.Models;
-using Xunit;
+Ôªøusing System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace BankTest
 {
-    public class UnitTest1
+    class BankRepositoryTest
     {
         [Fact]
         public void WithdrawTest()
@@ -16,7 +17,7 @@ namespace BankTest
 
             var result = repo.Withdraw(200, "name1");
 
-            Assert.Equal("Godk‰nd", result);
+            Assert.Equal("Godk√§nd", result);
             Assert.Equal(800, acc.Balance);
         }
 
@@ -31,7 +32,7 @@ namespace BankTest
 
             var result = repo.Deposit(200, "name1");
 
-            Assert.Equal("Godk‰nd", result);
+            Assert.Equal("Godk√§nd", result);
             Assert.Equal(1200, acc.Balance);
         }
 
@@ -46,7 +47,7 @@ namespace BankTest
 
             var result = repo.Withdraw(2000, "name1");
 
-            Assert.Equal("Saknar t‰ckning", result);
+            Assert.Equal("Saknar t√§ckning", result);
             Assert.Equal(1000, acc.Balance);
         }
     }

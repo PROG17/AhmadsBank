@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AhmadsBank.Models
 {
@@ -23,26 +21,19 @@ namespace AhmadsBank.Models
             Accounts.Add(new Account { AccountName = "Pkerstin", Customer = Customers[2], Balance = 20000 });
         }
 
-        public string Deposit(double depositAmount, string toAccountName)
+        public bool Transfer(double amount, string fromAccount, string targetAccount)
         {
-            var targetAccount = Accounts.Where(x => x.AccountName == toAccountName).FirstOrDefault();
+            var withdrawalAccount = Accounts.FirstOrDefault(account => account.AccountName == fromAccount);
+            if (withdrawalAccount == null || withdrawalAccount.Balance < amount) return false;
 
-            if (targetAccount != null)
-            {
-                targetAccount.Balance = targetAccount.Balance + depositAmount;
-                return "Godkänd";
-
-            }
-            else
-            {
-                return "Konto finns ej";
-            }
+            var withdrawalResult = Withdraw(amount, fromAccount);
+            if (withdrawalResult == "Godkänd") Deposit(amount, targetAccount);
+            return true;
         }
-
 
         public string Withdraw(double withdrawAmount, string toAccountName)
         {
-            var targetAccount = Accounts.Where(x => x.AccountName == toAccountName).FirstOrDefault();
+            var targetAccount = Accounts.FirstOrDefault(x => x.AccountName == toAccountName);
             if (targetAccount != null)
             {
 
@@ -51,15 +42,25 @@ namespace AhmadsBank.Models
                     targetAccount.Balance = targetAccount.Balance - withdrawAmount;
                     return "Godkänd";
                 }
-                else
-                {
-                    return "Saknar täckning";
-                }
+
+                return "Saknar täckning";
             }
-            else
+
+            return "Konto finns ej";
+        }
+
+        public string Deposit(double depositAmount, string toAccountName)
+        {
+            var targetAccount = Accounts.FirstOrDefault(x => x.AccountName == toAccountName);
+
+            if (targetAccount != null)
             {
-                return "Konto finns ej";
+                targetAccount.Balance = targetAccount.Balance + depositAmount;
+                return "Godkänd";
+
             }
+
+            return "Konto finns ej";
         }
     }
 }
