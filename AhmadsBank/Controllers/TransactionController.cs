@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AhmadsBank.Models;
+﻿using AhmadsBank.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AhmadsBank.Controllers
